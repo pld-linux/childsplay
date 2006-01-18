@@ -1,0 +1,11 @@
+--- childsplay-0.81.1/install.py	2005-11-13 13:46:03.000000000 +0100
++++ childsplay-0.81.1/install.py	2006-01-18 20:42:52.000000000 +0100
+@@ -52,7 +52,7 @@
+ if len(sys.argv) == 3:
+     if sys.argv[1] == '--compile':
+         try:
+-            compileall.compile_dir(sys.argv[2],quiet=1)
++            compileall.compile_dir(sys.argv[2])
+         except TypeError:
+             compileall.compile_dir(sys.argv[2])
+ elif sys.argv[1] == '--checkversion':
