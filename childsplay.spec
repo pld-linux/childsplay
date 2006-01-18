@@ -1,26 +1,21 @@
-%define plugins_ver 0.80.3
 
+%define plugins_ver 0.80.3
 Summary:	Games for children with plugins
 Summary(pl):	Gra dla dzieci z wtyczkami
 Name:		childsplay
 Version:	0.81.1
 Release:	1
 Group:		X11/Applications/Games
-Source0:        http://dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tgz
-Source1:        http://dl.sourceforge.net/sourceforge/%{name}/%{name}_plugins-%{plugins_ver}.tgz
-# Source0-md5:
+Source0:	http://dl.sourceforge.net/childsplay/%{name}-%{version}.tgz
+# Source0-md5:	fc7497ba05c242f7eaf4c8898aff3043
+Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
+# Source1-md5:	7ccaffb34f191af3f8cd945c7fbc0652
+Patch0:		%{name}-install.patch
 License:	GPL v2
 URL:		http://childsplay.sourceforge.net/
-BuildRequires:	SDL-devel
-BuildRequires:	SDL_image-devel
-BuildRequires:	SDL_mixer-devel
-BuildRequires:	SDL_ttf-devel
-BuildRequires:	gettext-devel >= 0.14.1
-BuildRequires:	libogg-devel
-BuildRequires:	python-devel
-BuildRequires:	python-pygame-devel
+%pyrequires_eq	python-modules
 Requires:	python-pygame >= 1.6
-Patch0:		%{name}-install.patch
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -38,12 +33,9 @@ jednak napisana w pythonie, uzywa biblioteki SDL.
 %setup -q -a1
 %patch0 -p1
 
-### fix python compile error
-#perl -pi.orig -e 's|quiet\=1||g' install.py
-
 cat <<'EOF' >childsplay.sh
 #!/bin/sh
-exec python %{_libdir}/childsplay/childsplay.py $@
+exec python %{_datadir}/childsplay/childsplay.pyc $@
 EOF
 
 cat <<'EOF' >BASEPATH.py
@@ -55,9 +47,9 @@ SCOREDIR = "/var/games/"
 SCOREFILE = SCOREDIR + "childsplay.score"
 DOCDIR =  "%{_docdir}/childsplay"
 MANDIR = "%{_mandir}/man6"
-CPDIR = "%{_prefix}/lib/childsplay"
+CPDIR = "%{_datadir}/childsplay"
 SHAREDIR = CPDIR
-BINDIR = "%{_prefix}/games"
+BINDIR = "%{_bindir}/games"
 LIBDIR = CPDIR + "/lib"
 MODULESDIR = LIBDIR
 SHARELIBDATADIR = SHAREDIR + "/lib"
@@ -73,49 +65,42 @@ EOF
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d 	$RPM_BUILD_ROOT%{_bindir} \
-			$RPM_BUILD_ROOT%{_libdir}/childsplay/lib/ConfigData/ \
-			$RPM_BUILD_ROOT%{_libdir}/childsplay/lib/MemoryData/ \
-			$RPM_BUILD_ROOT%{_mandir}/man6/	\
-			$RPM_BUILD_ROOT%{_datadir}/locale \
-			$RPM_BUILD_ROOT%{_datadir}/assetml \
-			$RPM_BUILD_ROOT/var/games 			
-
+install -d $RPM_BUILD_ROOT%{_datadir}{/%{name}/lib/{ConfigData,MemoryData},locale,assetml} \
+	$RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,/var/games}
 
 install -Dp childsplay.sh $RPM_BUILD_ROOT%{_bindir}/childsplay
 install -Dp man/childsplay.6.gz $RPM_BUILD_ROOT%{_mandir}/man6/childsplay.6.gz
 
-cp -fr Data/childsplay.score $RPM_BUILD_ROOT/var/games/childsplay.score
-cp -fr *.py $RPM_BUILD_ROOT%{_libdir}/childsplay/
-cp -fr Data/ $RPM_BUILD_ROOT%{_libdir}/childsplay/
-cp -fr lib $RPM_BUILD_ROOT%{_libdir}/childsplay/
+cp -fr Data/childsplay.score $RPM_BUILD_ROOT/var/games/%{name}.score
+cp -fr *.py $RPM_BUILD_ROOT%{_datadir}/%{name}/
+cp -fr Data/ $RPM_BUILD_ROOT%{_datadir}/%{name}/
+cp -fr lib $RPM_BUILD_ROOT%{_datadir}/%{name}/
 cp -fr locale $RPM_BUILD_ROOT%{_datadir}/
 cp -fr assetml $RPM_BUILD_ROOT%{_datadir}/
 
-### compile bytecode
-%{__python} install.py --compile $RPM_BUILD_ROOT%{_libdir}/childsplay/
-%{__python} install.py --makedir $RPM_BUILD_ROOT%{_libdir}/childsplay/
-
-### install plugins
-cd %{name}_plugins-%{plugins_ver}/
-python $RPM_BUILD_ROOT%{_libdir}/childsplay/install.py --compile Lib
-cp -fr lib/* $RPM_BUILD_ROOT%{_libdir}/childsplay/lib/
-cp -fr Data/*.icon.png $RPM_BUILD_ROOT%{_libdir}/childsplay/Data/icons/
-cp -fr Data/AlphabetSounds $RPM_BUILD_ROOT%{_libdir}/childsplay/Data/
-cp -fr assetml/%{name} $RPM_BUILD_ROOT%{_datadir}/assetml/
+cd childsplay_plugins-%{plugins_ver}/
+cp -fr lib/* $RPM_BUILD_ROOT%{_datadir}/%{name}/lib/
+cp -fr Data/*.icon.png $RPM_BUILD_ROOT%{_datadir}/%{name}/Data/icons/
+cp -fr Data/AlphabetSounds $RPM_BUILD_ROOT%{_datadir}/%{name}/Data/
+cp -fr assetml/childsplay $RPM_BUILD_ROOT%{_datadir}/assetml/
 %{__python} add-score.py $RPM_BUILD_ROOT/var/games/ "Packid,Numbers"
-cd -
+cd ..
+
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
+
+find $RPM_BUILD_ROOT%{_datadir} -name "*.py" | xargs rm
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README* doc/GPL* doc/README*
-%{_libdir}/%{name}/
-%{_datadir}/*
-%attr(755,root,games) %{_bindir}/*
-
-
-#%changelog
-#* Initial package.
+%doc README* doc/README* doc/Changelog
+%{_mandir}/man6/*
+%{_datadir}/%{name}
+%{_datadir}/assetml/*
+%attr(664,root,games) %config(noreplace) %verify(not md5 mtime size) /var/games/%{name}.score
+%attr(2755,root,games) %{_bindir}/childsplay
