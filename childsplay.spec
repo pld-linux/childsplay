@@ -1,17 +1,17 @@
 
 %define plugins_ver 0.80.3
 Summary:	Games for children with plugins
-Summary(pl):	Gra dla dzieci z wtyczkami
+Summary(pl):	Gry dla dzieci z wtyczkami
 Name:		childsplay
 Version:	0.81.1
 Release:	1
+License:	GPL v2
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/childsplay/%{name}-%{version}.tgz
 # Source0-md5:	fc7497ba05c242f7eaf4c8898aff3043
 Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
 # Source1-md5:	7ccaffb34f191af3f8cd945c7fbc0652
 Patch0:		%{name}-install.patch
-License:	GPL v2
 URL:		http://childsplay.sourceforge.net/
 %pyrequires_eq	python-modules
 Requires:	python-pygame >= 1.6
@@ -20,14 +20,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Childsplay is a 'suite' of educational games for young children, like
-gcompris, but without the overkill of c/c++ and the gnome environ.
+gcompris, but without the overkill of C/C++ and the GNOME environment.
 Also the use of the SDL libraries makes smooth animation and the
 playing of sound very easy.
 
 %description -l pl
-Childsplay jest gra edukacyjna dla dzieci podobna do gcompris. Jest
-jednak napisana w pythonie, uzywa biblioteki SDL.
-
+Childsplay to zestaw gier edukacyjnych dla ma³ych dzieci, podobnie do
+gcompris. Jest jednak napisana bez narzutu C/C++ i ¶rodowiska GNOME -
+w Pythonie, z u¿yciem biblioteki SDL, co czyni animacje p³ynnymi i
+odtwarzanie d¼wiêku bardzo ³atwym.
 
 %prep
 %setup -q -a1
@@ -59,9 +60,6 @@ CHILDSPLAYRC = "childsplayrc"
 HOME_DIR_NAME = ".childsplayrc"
 EOF
 
-%build
-
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -69,20 +67,20 @@ install -d $RPM_BUILD_ROOT%{_datadir}{/%{name}/lib/{ConfigData,MemoryData},local
 	$RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,/var/games}
 
 install -Dp childsplay.sh $RPM_BUILD_ROOT%{_bindir}/childsplay
-install -Dp man/childsplay.6.gz $RPM_BUILD_ROOT%{_mandir}/man6/childsplay.6.gz
+gzip -dc man/childsplay.6.gz >$RPM_BUILD_ROOT%{_mandir}/man6/childsplay.6
 
 cp -fr Data/childsplay.score $RPM_BUILD_ROOT/var/games/%{name}.score
-cp -fr *.py $RPM_BUILD_ROOT%{_datadir}/%{name}/
-cp -fr Data/ $RPM_BUILD_ROOT%{_datadir}/%{name}/
-cp -fr lib $RPM_BUILD_ROOT%{_datadir}/%{name}/
-cp -fr locale $RPM_BUILD_ROOT%{_datadir}/
-cp -fr assetml $RPM_BUILD_ROOT%{_datadir}/
+cp -fr *.py $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -fr Data/ $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -fr lib $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -fr locale $RPM_BUILD_ROOT%{_datadir}
+cp -fr assetml $RPM_BUILD_ROOT%{_datadir}
 
-cd childsplay_plugins-%{plugins_ver}/
-cp -fr lib/* $RPM_BUILD_ROOT%{_datadir}/%{name}/lib/
-cp -fr Data/*.icon.png $RPM_BUILD_ROOT%{_datadir}/%{name}/Data/icons/
-cp -fr Data/AlphabetSounds $RPM_BUILD_ROOT%{_datadir}/%{name}/Data/
-cp -fr assetml/childsplay $RPM_BUILD_ROOT%{_datadir}/assetml/
+cd childsplay_plugins-%{plugins_ver}
+cp -fr lib/* $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
+cp -fr Data/*.icon.png $RPM_BUILD_ROOT%{_datadir}/%{name}/Data/icons
+cp -fr Data/AlphabetSounds $RPM_BUILD_ROOT%{_datadir}/%{name}/Data
+cp -fr assetml/childsplay $RPM_BUILD_ROOT%{_datadir}/assetml
 %{__python} add-score.py $RPM_BUILD_ROOT/var/games/ "Packid,Numbers"
 cd ..
 
