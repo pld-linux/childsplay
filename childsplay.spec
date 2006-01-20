@@ -1,16 +1,16 @@
 
-%define plugins_ver 0.80.3
+%define plugins_ver 0.80.6
 Summary:	Games for children with plugins
 Summary(pl):	Gry dla dzieci z wtyczkami
 Name:		childsplay
-Version:	0.81.1
+Version:	0.81.5
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/childsplay/%{name}-%{version}.tgz
-# Source0-md5:	fc7497ba05c242f7eaf4c8898aff3043
+# Source0-md5:	c86a94d6f47047d1cd01b9525629b6dd
 Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
-# Source1-md5:	7ccaffb34f191af3f8cd945c7fbc0652
+# Source1-md5:	48178a23daaa44d01d51bb2246c1541e
 Patch0:		%{name}-install.patch
 URL:		http://childsplay.sourceforge.net/
 %pyrequires_eq	python-modules
@@ -88,6 +88,8 @@ cd ..
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 find $RPM_BUILD_ROOT%{_datadir} -name "*.py" | xargs rm
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/BASEPATH.py*
+cp BASEPATH.py $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %find_lang %{name}
 
