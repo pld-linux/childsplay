@@ -1,18 +1,21 @@
 
 %define plugins_ver 0.80.6
+%define plugins_lfc_ver 0.80.2
 Summary:	Games for children with plugins
 Summary(pl):	Gry dla dzieci z wtyczkami
 Name:		childsplay
-Version:	0.81.5
+Version:	0.81.7
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/childsplay/%{name}-%{version}.tgz
-# Source0-md5:	c86a94d6f47047d1cd01b9525629b6dd
+# Source0-md5:	004e0210d54e354aaaf7e33f066d4ee4
 Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
 # Source1-md5:	48178a23daaa44d01d51bb2246c1541e
-Source2:        %{name}.desktop
-Source3:        %{name}.png
+Source2:	http://dl.sourceforge.net/childsplay/%{name}_plugins_lfc-%{plugins_lfc_ver}.tgz
+# Source2-md5:	c63515a4132d3be1f060ad00a6da38ff
+Source3:        %{name}.desktop
+Source4:        %{name}.png
 Patch0:		%{name}-install.patch
 URL:		http://childsplay.sourceforge.net/
 %pyrequires_eq	python-modules
@@ -33,7 +36,7 @@ w Pythonie, z u¿yciem biblioteki SDL, co czyni animacje p³ynnymi i
 odtwarzanie d¼wiêku bardzo ³atwym.
 
 %prep
-%setup -q -a1
+%setup -q -a1 -a2
 %patch0 -p1
 
 cat <<'EOF' >childsplay.sh
@@ -52,7 +55,7 @@ DOCDIR =  "%{_docdir}/childsplay"
 MANDIR = "%{_mandir}/man6"
 CPDIR = "%{_datadir}/childsplay"
 SHAREDIR = "%{_datadir}/childsplay"
-BINDIR = "%{_bindir}/games"
+BINDIR = "%{_bindir}"
 LIBDIR = "%{_datadir}/childsplay/lib"
 MODULESDIR = "%{_datadir}/childsplay/lib"
 SHARELIBDATADIR = "%{_datadir}/childsplay/lib"
@@ -71,8 +74,8 @@ install -d $RPM_BUILD_ROOT%{_datadir}{/%{name}/lib/{ConfigData,MemoryData},local
 install -Dp childsplay.sh $RPM_BUILD_ROOT%{_bindir}/childsplay
 gzip -dc man/childsplay.6.gz >$RPM_BUILD_ROOT%{_mandir}/man6/childsplay.6
 
-install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE3} $RPM_BUILD_ROOT%{_pixmapsdir}
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 cp -fr Data/childsplay.score $RPM_BUILD_ROOT/var/games/%{name}.score
 cp -fr *.py $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -89,10 +92,19 @@ cp -fr assetml/childsplay $RPM_BUILD_ROOT%{_datadir}/assetml
 %{__python} add-score.py $RPM_BUILD_ROOT/var/games/ "Packid,Numbers"
 cd ..
 
+cd childsplay_plugins_lfc-%{plugins_lfc_ver}
+cp -fr lib/* $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
+cp -fr Data/*.icon.png $RPM_BUILD_ROOT%{_datadir}/%{name}/Data/icons
+cp -fr assetml/childsplay $RPM_BUILD_ROOT%{_datadir}/assetml
+cd ..
+
+
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-find $RPM_BUILD_ROOT%{_datadir} -name "*.py" | xargs rm
+find  $RPM_BUILD_ROOT%{_datadir} -maxdepth 2 -name "*.py" | xargs rm
+find  $RPM_BUILD_ROOT%{_datadir}/%{name}/lib -name "*.py[c,o]" | xargs rm
+
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/BASEPATH.py*
 cp BASEPATH.py $RPM_BUILD_ROOT%{_datadir}/%{name}
 
