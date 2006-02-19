@@ -118,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README* doc/README* doc/Changelog
 %{_mandir}/man6/*
 %{_datadir}/%{name}
+# XXX: shared with gcompris
+%dir %{_datadir}/assetml
 %{_datadir}/assetml/*
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png
