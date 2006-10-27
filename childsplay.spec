@@ -4,18 +4,17 @@
 Summary:	Games for children with plugins
 Summary(pl):	Gry dla dzieci z wtyczkami
 Name:		childsplay
-Version:	0.84
+Version:	0.84.1
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/childsplay/%{name}-%{version}.tgz
-# Source0-md5:	488b8f5658993353b0e2b64a04db08df
+# Source0-md5:	ae4e26a361b12d88b2d597a57568ac5e
 Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
 # Source1-md5:	573c1d60506143d68070e309c9009c20
 Source2:	http://dl.sourceforge.net/childsplay/%{name}_plugins_lfc-%{plugins_lfc_ver}.tgz
 # Source2-md5:	064de90b1c0b836d299a0ca235b4cf1e
 Source3:        %{name}.desktop
-Source4:        %{name}.png
 Patch0:		%{name}-install.patch
 URL:		http://childsplay.sourceforge.net/
 %pyrequires_eq	python-modules
@@ -75,7 +74,7 @@ install -Dp childsplay.sh $RPM_BUILD_ROOT%{_bindir}/childsplay
 gzip -dc man/childsplay.6.gz >$RPM_BUILD_ROOT%{_mandir}/man6/childsplay.6
 
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
+install Data/logo_cp_32x32.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 
 cp -fr Data/childsplay.score $RPM_BUILD_ROOT/var/games/%{name}.score
 cp -fr *.py $RPM_BUILD_ROOT%{_datadir}/%{name}
