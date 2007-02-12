@@ -2,7 +2,7 @@
 %define plugins_ver 0.85.2
 %define plugins_lfc_ver 0.85.2
 Summary:	Games for children with plugins
-Summary(pl):	Gry dla dzieci z wtyczkami
+Summary(pl.UTF-8):   Gry dla dzieci z wtyczkami
 Name:		childsplay
 Version:	0.85.1
 Release:	1
@@ -28,11 +28,11 @@ gcompris, but without the overkill of C/C++ and the GNOME environment.
 Also the use of the SDL libraries makes smooth animation and the
 playing of sound very easy.
 
-%description -l pl
-Childsplay to zestaw gier edukacyjnych dla ma≥ych dzieci, podobnie do
-gcompris. Jest jednak napisana bez narzutu C/C++ i ∂rodowiska GNOME -
-w Pythonie, z uøyciem biblioteki SDL, co czyni animacje p≥ynnymi i
-odtwarzanie dºwiÍku bardzo ≥atwym.
+%description -l pl.UTF-8
+Childsplay to zestaw gier edukacyjnych dla ma≈Çych dzieci, podobnie do
+gcompris. Jest jednak napisana bez narzutu C/C++ i ≈õrodowiska GNOME -
+w Pythonie, z u≈ºyciem biblioteki SDL, co czyni animacje p≈Çynnymi i
+odtwarzanie d≈∫wiƒôku bardzo ≈Çatwym.
 
 %prep
 %setup -q -a1 -a2
