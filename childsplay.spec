@@ -2,7 +2,7 @@
 %define plugins_ver 0.85.2
 %define plugins_lfc_ver 0.85.2
 Summary:	Games for children with plugins
-Summary(pl.UTF-8):   Gry dla dzieci z wtyczkami
+Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
 Name:		childsplay
 Version:	0.85.1
 Release:	1
