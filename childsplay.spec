@@ -18,6 +18,7 @@ Source3:        %{name}.desktop
 Patch0:		%{name}-install.patch
 URL:		http://childsplay.sourceforge.net/
 %pyrequires_eq	python-modules
+BuildRequires:	rpm-pythonprov
 Requires:	python-pygame >= 1.6
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
