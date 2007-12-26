@@ -1,11 +1,10 @@
 [Desktop Entry]
-Encoding=UTF-8
 Exec=childsplay
 Name=ChildsPlay
 Name[pl]=ChildsPlay
 Comment=Educational Games
 Comment[pl]=Gry edukacyjne
-Icon=childsplay.png
+Icon=childsplay
 Terminal=false
 Type=Application
 Categories=Game;BoardGame;
