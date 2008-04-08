@@ -1,4 +1,5 @@
-
+# TODO
+#  error: childsplay-0.90.2-1: req /usr/share/locale/no/LC_MESSAGES not found
 %define plugins_ver 0.90
 %define plugins_lfc_ver 0.90
 Summary:	Games for children with plugins
