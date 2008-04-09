@@ -1,12 +1,10 @@
-# TODO
-#  error: childsplay-0.90.2-1: req /usr/share/locale/no/LC_MESSAGES not found
 %define plugins_ver 0.90
 %define plugins_lfc_ver 0.90
 Summary:	Games for children with plugins
 Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
 Name:		childsplay
 Version:	0.90.2
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/childsplay/%{name}-%{version}.tgz
@@ -109,6 +107,7 @@ find  $RPM_BUILD_ROOT%{_datadir}/%{name}/lib -name "*.py[c,o]" | xargs rm
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/BASEPATH.py*
 cp BASEPATH.py $RPM_BUILD_ROOT%{_datadir}/%{name}
 
+mv $RPM_BUILD_ROOT%{_datadir}/locale/{no,nb}
 %find_lang %{name}
 
 %clean
