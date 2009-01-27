@@ -1,6 +1,5 @@
 #
-# TODO:	- package language files
-#	- enable plugins
+# TODO:	- enable plugins
 #	- check install section
 #
 %define plugins_ver 0.90
@@ -112,13 +111,13 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/BASEPATH.py*
 cp BASEPATH.py $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 #mv $RPM_BUILD_ROOT%{_datadir}/locale/{no,nb}
-#%%find_lang %{name}
+%find_lang %{name}_sp
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%%files -f %{name}.lang
-%files
+%files -f %{name}_sp.lang
+#%%files
 %defattr(644,root,root,755)
 %doc doc/*
 #%%{_mandir}/man6/*
