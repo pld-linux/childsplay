@@ -1,6 +1,7 @@
 #
 # TODO:	- enable plugins
 #	- check install section
+#	- make it runable :-)
 #
 %define plugins_ver 0.90
 %define plugins_lfc_ver 0.90
@@ -22,7 +23,7 @@ URL:		http://www.schoolsplay.org/
 %pyrequires_eq	python-modules
 BuildRequires:	rpm-pythonprov
 Requires:	python-SQLAlchemy
-Requires:	python-pygame >= 1.6
+Requires:	python-pygame >= 1.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -41,11 +42,6 @@ odtwarzanie dźwięku bardzo łatwym.
 %prep
 #%%setup -q -a1 -a2
 %setup -q
-
-cat <<'EOF' >childsplay.sh
-#!/bin/sh
-exec python %{_datadir}/childsplay/childsplay.pyc $@
-EOF
 
 cat <<'EOF' >BASEPATH.py
 BASEPATH = "%{_prefix}"
@@ -74,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}{/%{name}/lib/{ConfigData,MemoryData},locale,assetml} \
         $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir},%{_pixmapsdir},%{_mandir}/man6,/var/games}
 
-install -Dp childsplay.sh $RPM_BUILD_ROOT%{_bindir}/childsplay
+install -Dp bin/childsplay $RPM_BUILD_ROOT%{_bindir}/childsplay
 #gzip -dc man/childsplay.6.gz >$RPM_BUILD_ROOT%{_mandir}/man6/childsplay.6
 
 install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
