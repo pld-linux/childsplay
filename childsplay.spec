@@ -8,12 +8,12 @@
 Summary:	Games for children with plugins
 Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
 Name:		childsplay
-Version:	1.0
+Version:	1.1
 Release:	0.1
 License:	GPL v3+
 Group:		X11/Applications/Games
-Source0:	http://dl.sourceforge.net/schoolsplay/childsplay-1.0.tgz
-# Source0-md5:	dd50fc1c7cf79289964130850fb36e58
+Source0:	http://dl.sourceforge.net/schoolsplay/%{name}-%{version}.tgz
+# Source0-md5:	7a71a01f53b0ee4661fd7be44f99203f
 #Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
 # Source1-md5:	2abd77c938ce4297c3a6190637833ca5
 #Source2:	http://dl.sourceforge.net/childsplay/%{name}_plugins_lfc-%{plugins_lfc_ver}.tgz
