@@ -1,5 +1,5 @@
 #
-# TODO:	- enable plugins
+# TODO:	- enable plugins (if possible)
 #	- check install section
 #	- make it runable :-)
 #
@@ -8,23 +8,25 @@
 Summary:	Games for children with plugins
 Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
 Name:		childsplay
-Version:	1.3
+Version:	1.4
 Release:	0.1
 License:	GPL v3+
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/schoolsplay/%{name}-%{version}.tgz
-# Source0-md5:	b38bba758f4f78bf94f0516cb161e108
+# Source0-md5:	80251bd541071ad80419c7671c55b45c
 #Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
 # Source1-md5:	2abd77c938ce4297c3a6190637833ca5
 #Source2:	http://dl.sourceforge.net/childsplay/%{name}_plugins_lfc-%{plugins_lfc_ver}.tgz
 # Source2-md5:	123b24a0af50cda07f8c6869d6f939ff
 Source3:        %{name}.desktop
+Patch0:		%{name}-import.patch
 URL:		http://www.schoolsplay.org/
 %pyrequires_eq	python-modules
 BuildRequires:	rpm-pythonprov
 Requires:	python-SQLAlchemy
 Requires:	python-numpy
 Requires:	python-pygame >= 1.7
+Requires:	python-sqlite >= 1.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -43,6 +45,7 @@ odtwarzanie dźwięku bardzo łatwym.
 %prep
 #%%setup -q -a1 -a2
 %setup -q
+%patch0 -p1
 
 cat <<'EOF' >BASEPATH.py
 BASEPATH = "%{_prefix}"
