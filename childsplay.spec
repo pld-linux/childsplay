@@ -2,7 +2,7 @@ Summary:	Games for children with plugins
 Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
 Name:		childsplay
 Version:	1.5.1
-Release:	0.1
+Release:	1
 License:	GPL v3+
 Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/schoolsplay/%{name}-%{version}.tgz
@@ -17,6 +17,7 @@ BuildRequires:	rpm-pythonprov
 Requires:	python-SQLAlchemy
 Requires:	python-numpy
 Requires:	python-pygame >= 1.7
+Requires:	python-pygtk-gtk >= 1:2.0
 Requires:	python-sqlite >= 1.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
