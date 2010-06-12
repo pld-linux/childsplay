@@ -1,8 +1,3 @@
-#
-# TODO:	- enable plugins (if possible)
-#
-%define plugins_ver 0.90
-%define plugins_lfc_ver 0.90
 Summary:	Games for children with plugins
 Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
 Name:		childsplay
