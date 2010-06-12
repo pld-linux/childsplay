@@ -16,8 +16,9 @@ Source1:	%{name}.desktop
 Source2:	pld_setup.py
 Patch0:		%{name}-gettext.patch
 URL:		http://www.schoolsplay.org/
-%pyrequires_eq	python-modules
+BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
+%pyrequires_eq	python-modules
 Requires:	python-SQLAlchemy
 Requires:	python-numpy
 Requires:	python-pygame >= 1.7
@@ -66,8 +67,6 @@ install lib/SPData/menu/default/logo_cp_64x64.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-#mv $RPM_BUILD_ROOT%{_datadir}/locale/{no,nb}
-
 %find_lang %{name}_sp --all-name
 
 %clean
@@ -81,3 +80,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/childsplay_sp
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png
+%if "%{py_ver}" > "2.4"
+%{py_sitescriptdir}/childsplay_sp-*.egg-info
+%endif
