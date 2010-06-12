@@ -13,11 +13,12 @@ Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/schoolsplay/%{name}-%{version}.tgz
 # Source0-md5:	6ed368af17e7e2fd129b0b9c5d4921ec
 #Source1:	http://dl.sourceforge.net/childsplay/%{name}_plugins-%{plugins_ver}.tgz
-# Source1-md5:	2abd77c938ce4297c3a6190637833ca5
+## Source1-md5:	2abd77c938ce4297c3a6190637833ca5
 #Source2:	http://dl.sourceforge.net/childsplay/%{name}_plugins_lfc-%{plugins_lfc_ver}.tgz
-# Source2-md5:	123b24a0af50cda07f8c6869d6f939ff
+## Source2-md5:	123b24a0af50cda07f8c6869d6f939ff
 Source3:	%{name}.desktop
 Source4:	pld_setup.py
+Patch0:		%{name}-gettext.patch
 URL:		http://www.schoolsplay.org/
 %pyrequires_eq	python-modules
 BuildRequires:	rpm-pythonprov
@@ -43,6 +44,7 @@ odtwarzanie dźwięku bardzo łatwym.
 %prep
 #%%setup -q -a1 -a2
 %setup -q
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
