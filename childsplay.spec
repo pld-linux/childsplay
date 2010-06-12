@@ -44,14 +44,8 @@ odtwarzanie dźwięku bardzo łatwym.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}/alphabetsounds,%{_datadir}/locale,%{py_sitescriptdir}/childsplay_sp}
-
-cp -fr lib/CPData $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -fr lib/SPData $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -fr alphabetsounds/en $RPM_BUILD_ROOT%{_datadir}/%{name}/alphabetsounds
-cp -fr locale/* $RPM_BUILD_ROOT%{_datadir}/locale
-
-install bin/childsplay $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/{%{name}/alphabetsounds,locale},%{_pixmapsdir},%{_desktopdir}}
+install -d $RPM_BUILD_ROOT%{py_sitescriptdir}/childsplay_sp
 
 # use our custom setup.py instead of ugly orginal one
 cp %{SOURCE2} setup.py
@@ -60,8 +54,14 @@ cp %{SOURCE2} setup.py
 	--optimize=2 \
 	--root=$RPM_BUILD_ROOT
 
-#install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-#install lib/SPData/menu/default/logo_cp_32x32.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.xpm
+cp -fr lib/CPData $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -fr lib/SPData $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -fr alphabetsounds/en $RPM_BUILD_ROOT%{_datadir}/%{name}/alphabetsounds
+cp -fr locale/* $RPM_BUILD_ROOT%{_datadir}/locale
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+install bin/childsplay $RPM_BUILD_ROOT%{_bindir}
+install lib/SPData/menu/default/logo_cp_64x64.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -79,5 +79,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/childsplay
 %{_datadir}/%{name}
 %{py_sitescriptdir}/childsplay_sp
-#%%{_desktopdir}/%{name}.desktop
-#%%{_pixmapsdir}/%{name}.xpm
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png
