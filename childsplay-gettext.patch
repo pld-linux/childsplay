@@ -1,0 +1,446 @@
+--- childsplay-1.5.1/SPCoreButtons.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/SPCoreButtons.py	2010-06-12 20:24:50.405518129 +0200
+@@ -23,13 +23,17 @@
+ import logging
+ module_logger = logging.getLogger("schoolsplay.SPCoreButtons")
+ 
+-import os, glob
++import os, glob, gettext
+ 
+ import childsplay_sp.ocempgui.widgets as ocw
+ import childsplay_sp.ocempgui.widgets.Constants as ocwc
+ 
+ from SPConstants import *
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ class MainCoreButtons:
+     """Object that provides the buttons used by the core in the main menu bar.
+     Th buttons has to be added to a renderer.
+--- childsplay-1.5.1/SPHelpText.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/SPHelpText.py	2010-06-12 20:31:51.918808440 +0200
+@@ -23,8 +23,13 @@
+ # For example, to get the text for the GUI SPCheckPass Login frame:
+ # ht = SPHelpText.SPCheckPass.Login
+ 
++import gettext
+ from SPConstants import HOMEDIR
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ class SPCheckPass(object):
+     Login = _(\
+ "If you start the GUI for the first time there's no\
+--- childsplay-1.5.1/SPMainCore.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/SPMainCore.py	2010-06-12 20:34:59.541706240 +0200
+@@ -30,6 +30,7 @@
+ import pygame
+ import threading
+ import types
++import gettext
+ from pygame.constants import *
+ ## set a bigger buffer, seems that on win XP in conjuction with certain hardware
+ ## the playback of sound is scrambled with the "normal" 1024 buffer.
+@@ -63,6 +64,10 @@
+ from SPVirtualkeyboard import VirtualKeyboard
+ from sqlalchemy import exceptions as sqla_exceptions
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # Used to cleanup stuff when the Python vm ends
+ def cleanup():
+     module_logger.info("cleanup called.")
+--- childsplay-1.5.1/SPMenu.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/SPMenu.py	2010-06-12 20:36:50.618778478 +0200
+@@ -43,6 +43,7 @@
+ import logging
+ import pygame
+ import utils
++import gettext
+ from xml.dom import minidom
+ module_logger = logging.getLogger("schoolsplay.SPMenu")
+ 
+@@ -50,6 +51,10 @@
+ from SPocwWidgets import ToolTip
+ from SPHelpText import ToolTipText
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ class Activity:
+     """  This provides the activity menu internally used by MainCore.
+     
+--- childsplay-1.5.1/SPgdm.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/SPgdm.py	2010-06-12 20:37:59.908354818 +0200
+@@ -25,6 +25,7 @@
+ 
+ import logging
+ import os
++import gettext
+ module_logger = logging.getLogger("schoolsplay.SPgdm")
+ 
+ from SPConstants import *
+@@ -48,6 +49,10 @@
+ import SPHelpText
+ import Version
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # Load the ocempgui theme.
+ # TODO" make ocw theme configurable
+ # TODO: this is not working
+--- childsplay-1.5.1/SPocwWidgets.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/SPocwWidgets.py	2010-06-12 20:39:16.485430547 +0200
+@@ -25,6 +25,7 @@
+ import os
+ import pygame
+ import types
++import gettext
+ from SPConstants import *
+ from SPSpriteUtils import SPSprite
+ from childsplay_sp import pangofont as PFont
+@@ -40,6 +41,10 @@
+     
+ from SPConstants import CORE_BUTTONS_XCOORDS as CBXC
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ class SPEntry(SPSprite):
+     """Entry widget which is RTL aware and uses Pango.
+     This widget reacts only to two key events, backspace and enter.
+--- childsplay-1.5.1/gui/AdminGui.py~	2010-05-20 07:44:04.000000000 +0200
++++ childsplay-1.5.1/gui/AdminGui.py	2010-06-12 20:41:01.758753056 +0200
+@@ -19,7 +19,7 @@
+ 
+ """Simple GUI to set mu and sigma values in the activity_options table."""
+ 
+-import sys,os,atexit
++import sys,os,atexit,gettext
+ 
+ # Enable special streams redirection useful on win32 when run from an exe
+ # because on win32 the output and error streams are send into a black hole.
+@@ -45,6 +45,10 @@
+ utils.set_locale()
+ import childsplay_sp.SPHelpText as SPHelpText
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ def cleanup():
+     # remove any locks that been set
+     try:
+--- childsplay-1.5.1/lib/billiard.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/billiard.py	2010-06-12 20:43:15.658740902 +0200
+@@ -32,7 +32,7 @@
+ module_logger = logging.getLogger("schoolsplay.billiard")
+ 
+ # standard modules you probably need
+-import os,sys,operator,random
++import os,sys,operator,random,gettext
+ from math import sqrt,acos
+ 
+ import pygame
+@@ -42,6 +42,10 @@
+ from childsplay_sp.SPConstants import *
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
+--- childsplay-1.5.1/lib/fallingletters.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/fallingletters.py	2010-06-12 20:45:21.221644430 +0200
+@@ -26,7 +26,7 @@
+ # See SP manual for more info 
+ 
+ # standard modules you probably need
+-import os,sys,random,string
++import os,sys,random,string,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -45,6 +45,10 @@
+ 
+ from childsplay_sp.SPocwWidgets import ExeCounter
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
+--- childsplay-1.5.1/lib/find_char_sound.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/find_char_sound.py	2010-06-12 20:46:26.094972106 +0200
+@@ -23,7 +23,7 @@
+ module_logger = logging.getLogger("schoolsplay.CP_find_char_sound")
+ 
+ # standard modules you probably need
+-import os,sys,random,glob,string
++import os,sys,random,glob,string,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -33,6 +33,10 @@
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ import childsplay_sp.Timer as Timer
+ from childsplay_sp import SPHelpText
++
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
+  
+ # containers that can be used globally to store stuff
+ class Misc:
+--- childsplay-1.5.1/lib/fishtank.py~	2010-05-20 07:44:01.000000000 +0200
++++ childsplay-1.5.1/lib/fishtank.py	2010-06-12 20:48:16.922046788 +0200
+@@ -34,12 +34,17 @@
+ import glob,random
+ import pygame
+ from pygame.constants import *
++import gettext
+ 
+ import childsplay_sp.utils as utils
+ import childsplay_sp.Timer as Timer
+ from childsplay_sp.SPConstants import *
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Misc:
+     # fish_clear_total is used as a counter.
+--- childsplay-1.5.1/lib/memorynumbers.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/memorynumbers.py	2010-06-12 20:49:34.821619288 +0200
+@@ -27,11 +27,16 @@
+ 
+ import pygame
+ from pygame.constants import *
++import gettext
+ 
+ import childsplay_sp.utils as utils
+ from childsplay_sp.SPConstants import *
+ from childsplay_sp.SPSpriteUtils import SPInit, SPSprite,MySprite
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
+--- childsplay-1.5.1/lib/soundmemory.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/soundmemory.py	2010-06-12 20:50:59.958693970 +0200
+@@ -28,7 +28,7 @@
+ module_logger = logging.getLogger("schoolsplay.soundmemory")
+ 
+ # standard modules you probably need
+-import os,sys,random,glob
++import os,sys,random,glob,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -38,6 +38,10 @@
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ from childsplay_sp import SPHelpText
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
+--- childsplay-1.5.1/lib/memorylower.py~	2010-05-20 07:44:01.000000000 +0200
++++ childsplay-1.5.1/lib/memorylower.py	2010-06-12 20:52:01.268687474 +0200
+@@ -23,7 +23,7 @@
+ import logging
+ module_logger = logging.getLogger("schoolsplay.memorylower")
+ 
+-import os,sys,glob,random,copy
++import os,sys,glob,random,copy,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -32,6 +32,10 @@
+ from childsplay_sp.SPConstants import *
+ from childsplay_sp.SPSpriteUtils import SPInit, SPSprite,MySprite
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ if utils.get_locale()[0][:2] in SUPPORTEDKEYMAPS:
+     LANG = utils.get_locale()[0][:2]
+ else:
+--- childsplay-1.5.1/lib/memoryupper.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/memoryupper.py	2010-06-12 20:52:45.681599662 +0200
+@@ -23,7 +23,7 @@
+ import logging
+ module_logger = logging.getLogger("schoolsplay.memoryupper")
+ 
+-import os,sys,glob,random,copy
++import os,sys,glob,random,copy,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -32,6 +32,10 @@
+ from childsplay_sp.SPConstants import *
+ from childsplay_sp.SPSpriteUtils import SPInit, SPSprite,MySprite
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ if utils.get_locale()[0][:2] in SUPPORTEDKEYMAPS:
+     LANG = utils.get_locale()[0][:2]
+ else:
+--- childsplay-1.5.1/lib/puzzle.py~	2010-05-20 07:44:03.000000000 +0200
++++ childsplay-1.5.1/lib/puzzle.py	2010-06-12 20:53:38.341594564 +0200
+@@ -28,7 +28,7 @@
+ module_logger = logging.getLogger("schoolsplay.puzzle")
+ 
+ # standard modules you probably need
+-import os,sys,random,glob
++import os,sys,random,glob,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -37,6 +37,10 @@
+ from childsplay_sp.SPConstants import *
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ ########################################
+ # Constats definition
+ ########################################
+--- childsplay-1.5.1/lib/findsound.py~	2010-05-20 07:44:01.000000000 +0200
++++ childsplay-1.5.1/lib/findsound.py	2010-06-12 20:55:13.071585903 +0200
+@@ -28,7 +28,7 @@
+ module_logger = logging.getLogger("schoolsplay.findsound")
+ 
+ # standard modules you probably need
+-import os,sys,glob,random
++import os,sys,glob,random,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -38,6 +38,10 @@
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ from childsplay_sp import SPHelpText
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
+--- childsplay-1.5.1/lib/flashcards.py~	2010-05-20 07:44:03.000000000 +0200
++++ childsplay-1.5.1/lib/flashcards.py	2010-06-12 20:56:19.224913021 +0200
+@@ -29,7 +29,7 @@
+ 
+ # standard modules you probably need
+ import os,sys,glob
+-import random,logging,types
++import random,logging,types,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -40,6 +40,10 @@
+ from childsplay_sp import Timer
+ from childsplay_sp.SPSpriteUtils import SPButton as Button
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ EXTRABORDER = 10
+ # The locales we support, it's used to switch to English if we run
+ # in a non supported locale.
+--- childsplay-1.5.1/lib/packid.py~	2010-05-20 07:44:01.000000000 +0200
++++ childsplay-1.5.1/lib/packid.py	2010-06-12 20:57:28.421572004 +0200
+@@ -28,7 +28,7 @@
+ module_logger = logging.getLogger("schoolsplay.packid")
+ 
+ # standard modules you probably need
+-import os,random,operator,string,sys
++import os,random,operator,string,sys,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -38,6 +38,10 @@
+ from childsplay_sp.utils import load_image,load_sound,load_music,MyError,\
+                                 font2surf,MazeGen,get_files,read_unicode_file,\
+                                 ascii2hex, char2surf, speak_letter
++
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
+                                 
+ #0= wall 1=go
+ #matrix =   ((0,0,0,0,0),\
+--- childsplay-1.5.1/lib/pong.py~	2010-05-20 07:44:01.000000000 +0200
++++ childsplay-1.5.1/lib/pong.py	2010-06-12 20:58:11.931984070 +0200
+@@ -28,7 +28,7 @@
+ module_logger = logging.getLogger("schoolsplay.pong")
+ 
+ # standard modules you probably need
+-import os,sys,random
++import os,sys,random,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -37,6 +37,10 @@
+ from childsplay_sp.SPConstants import *
+ import childsplay_sp.SPSpriteUtils as SPSpriteUtils
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
+--- childsplay-1.5.1/lib/memory.py~	2010-05-20 07:44:00.000000000 +0200
++++ childsplay-1.5.1/lib/memory.py	2010-06-12 20:59:24.574893464 +0200
+@@ -21,7 +21,7 @@
+ import logging
+ module_logger = logging.getLogger("schoolsplay.memory")
+ 
+-import os,sys,glob,random,copy
++import os,sys,glob,random,copy,gettext
+ 
+ import pygame
+ from pygame.constants import *
+@@ -30,6 +30,10 @@
+ from childsplay_sp.SPConstants import *
+ from childsplay_sp.SPSpriteUtils import SPInit, SPSprite,MySprite
+ 
++gettext.bindtextdomain('childsplay_sp', '/usr/share/locale')
++gettext.textdomain('childsplay_sp')
++_ = gettext.gettext
++
+ # containers that can be used globally to store stuff
+ class Img:
+     pass
