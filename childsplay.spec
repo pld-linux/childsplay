@@ -1,5 +1,5 @@
-Summary:	Games for children with plugins
-Summary(pl.UTF-8):	Gry dla dzieci z wtyczkami
+Summary:	Educational games for children
+Summary(pl.UTF-8):	Gry edukacyjne dla dzieci
 Name:		childsplay
 Version:	1.5.1
 Release:	1
@@ -29,10 +29,10 @@ Also the use of the SDL libraries makes smooth animation and the
 playing of sound very easy.
 
 %description -l pl.UTF-8
-Childsplay to zestaw gier edukacyjnych dla małych dzieci, podobnie do
-gcompris. Jest jednak napisana bez narzutu C/C++ i środowiska GNOME -
-w Pythonie, z użyciem biblioteki SDL, co czyni animacje płynnymi i
-odtwarzanie dźwięku bardzo łatwym.
+Childsplay to zestaw gier edukacyjnych dla małych dzieci, podobnych do
+gier z zestawu gcompris. Jest jednak napisana bez narzutu C/C++ i
+środowiska GNOME - w Pythonie, z użyciem biblioteki SDL, co czyni
+animacje płynnymi i odtwarzanie dźwięku bardzo łatwym.
 
 %prep
 %setup -q
