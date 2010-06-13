@@ -11,10 +11,10 @@ import os, glob, shutil
 
 PREFIX = '/usr'
 
-modulepaths = {'ALPHABETDIR':os.path.join(PREFIX, 'share', 'childsplay', 'alphabetsounds')}
+modulepaths = {'ALPHABETDIR':os.path.join(PREFIX, 'share', 'games', 'childsplay', 'alphabetsounds')}
 modulepaths['BASEDIR'] = os.path.join(PREFIX, 'childsplay_sp')
-modulepaths['SHARELIBDATADIR'] = "/usr/share/childsplay"
-modulepaths['LOCALEDIR'] = "/usr/share/locale"
+modulepaths['SHARELIBDATADIR'] = os.path.join(PREFIX, 'share', 'games', 'childsplay')
+modulepaths['LOCALEDIR'] = os.path.join(PREFIX, 'share', 'locale')
 modulepaths['PYTHONCPDIR'] = os.path.join(get_python_lib(), 'childsplay_sp')
 
 module = 'SPBasePaths.py'
