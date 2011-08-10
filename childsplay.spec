@@ -1,12 +1,12 @@
 Summary:	Educational games for children
 Summary(pl.UTF-8):	Gry edukacyjne dla dzieci
 Name:		childsplay
-Version:	1.5.1
-Release:	4
+Version:	1.6
+Release:	1
 License:	GPL v3+
 Group:		X11/Applications/Games
 Source0:	http://downloads.sourceforge.net/schoolsplay/%{name}-%{version}.tgz
-# Source0-md5:	6ed368af17e7e2fd129b0b9c5d4921ec
+# Source0-md5:	d113ca45424f48e5f8fee6df04ffa7a1
 Source1:	%{name}.desktop
 Source2:	pld_setup.py
 Patch0:		%{name}-gettext.patch
