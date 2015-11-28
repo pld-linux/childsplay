@@ -48,9 +48,7 @@ install -d $RPM_BUILD_ROOT%{py_sitescriptdir}/childsplay_sp
 # use our custom setup.py instead of ugly orginal one
 cp %{SOURCE2} setup.py
 
-%{__python} setup.py install \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py_install
 
 cp -fr lib/CPData $RPM_BUILD_ROOT%{_datadir}/games/%{name}
 cp -fr lib/SPData $RPM_BUILD_ROOT%{_datadir}/games/%{name}
